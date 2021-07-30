@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-const Version = "v1"
+const Version = "v2"
 const HeartbeatInterval = 0.5
 const ShutdownListenerPort = "9000"
 
