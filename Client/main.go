@@ -11,8 +11,6 @@ import (
 )
 
 const Version = "v1"
-const ServerAddress = "192.168.1.183"
-const TargetPort = "8888"
 const HeartbeatInterval = 0.5
 const ShutdownListenerPort = "9000"
 
@@ -23,14 +21,20 @@ const ClientShutdownEndType = 3
 
 type ClientRequest struct {
 	Hostname string `json:"hostname"`
-	Type int `json:"type"`
-	Version string `json:"version"`
+	Type     int    `json:"type"`
+	Version  string `json:"version"`
 }
 
 var active bool
 var shuttingDown bool
 
+var ServerAddress string
+var TargetPort string
+
 func main() {
+	ServerAddress = os.Getenv("TARGET_ADDR")
+	TargetPort = os.Getenv("TARGET_PORT")
+	log.Printf("Starting Client with target %v:%v", ServerAddress, TargetPort)
 	active = true
 	shuttingDown = false
 	sendMessageToServer(ClientStartupType)
